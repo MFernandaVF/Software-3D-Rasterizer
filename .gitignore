@@ -1,0 +1,11 @@
+# Archivos compilados / Compiled files
+*.obj
+*.exe
+
+# Modelos y texturas (no incluidos por licencia) / Models and textures (not included due to licensing)
+*.tdm
+*.bmp
+
+# Librería externa / External library
+lib/
+include/libosw/
