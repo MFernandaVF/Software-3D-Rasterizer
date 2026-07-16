@@ -24,20 +24,21 @@ Motor de renderizado **por software** escrito en C que carga un modelo 3D export
 ### Estructura del proyecto
 
 ```
-├── src/
-│   ├── main.c          # Punto de entrada, cámara, luces, loop principal, input
-│   ├── gs.c            # Motor gráfico: framebuffer, z-buffer, id-buffer, rasterización
-│   ├── trx.c           # Álgebra lineal: vectores, matrices 4×4, proyección
-│   ├── model.c         # Carga de modelos en formato .tdm
-│   └── texture.c       # Carga y muestreo de texturas BMP (24 bits)
-├── include/
-│   ├── gs.h
-│   ├── trx.h
-│   ├── model.h
-│   └── texture.h
-├── lib/                # Aquí va Osw.lib (ver Dependencias)
-├── tdm_exporter_v2.py  # Plugin de Blender para exportar al formato .tdm
-├── build.bat           # Script de compilación (MSVC)
+├── rasterizer/
+│   ├── src/
+│   │   ├── main.c          # Punto de entrada, cámara, luces, loop principal, input
+│   │   ├── gs.c            # Motor gráfico: framebuffer, z-buffer, id-buffer, rasterización
+│   │   ├── trx.c           # Álgebra lineal: vectores, matrices 4×4, proyección
+│   │   ├── model.c         # Carga de modelos en formato .tdm
+│   │   └── texture.c       # Carga y muestreo de texturas BMP (24 bits)
+│   ├── include/
+│   │   ├── gs.h
+│   │   ├── trx.h
+│   │   ├── model.h
+│   │   └── texture.h
+│   ├── lib/                # Aquí va Osw.lib (ver Dependencias)
+│   ├── tdm_exporter_v2.py  # Plugin de Blender para exportar al formato .tdm
+│   └── build.bat           # Script de compilación (MSVC)
 └── README.md
 ```
 
@@ -46,8 +47,8 @@ Motor de renderizado **por software** escrito en C que carga un modelo 3D export
 Este proyecto requiere **libosw**, una librería externa para manejo de ventana e input. No está incluida en este repositorio.
 
 1. Obtener libosw del proveedor original
-2. Copiar `Osw.lib` a la carpeta `lib/`
-3. Copiar los headers de libosw a `include/libosw/`
+2. Copiar `Osw.lib` a la carpeta `rasterizer/lib/`
+3. Copiar los headers de libosw a `rasterizer/include/libosw/`
 
 ### Formato binario .tdm
 
@@ -66,7 +67,7 @@ El repositorio no incluye modelos ni texturas por motivos de licencia. Para usar
 1. Abrir tu modelo en Blender
 2. Asignar vertex groups para definir las partes seleccionables
 3. Ejecutar `tdm_exporter_v2.py` para exportar al formato `.tdm`
-4. Colocar el archivo `.tdm` y la textura `.bmp` (24 bits, sin compresión) en la raíz del proyecto
+4. Colocar el archivo `.tdm` y la textura `.bmp` (24 bits, sin compresión) en la carpeta `rasterizer/`
 5. Ajustar los nombres de archivo en `main.c` y compilar
 
 ### Controles
@@ -87,6 +88,7 @@ El repositorio no incluye modelos ni texturas por motivos de licencia. Para usar
 Requiere MSVC (Visual Studio). Ajustar `VS_PATH` en `build.bat` y ejecutar:
 
 ```bat
+cd rasterizer
 build.bat
 ```
 
@@ -121,20 +123,21 @@ Enlaza: `User32.lib`, `Gdi32.lib`, `Opengl32.lib`, `Xinput9_1_0.lib`, `Osw.lib`
 ### Project structure
 
 ```
-├── src/
-│   ├── main.c          # Entry point, camera, lights, main loop, input
-│   ├── gs.c            # Graphics engine: framebuffer, z-buffer, id-buffer, rasterization
-│   ├── trx.c           # Linear algebra: vectors, 4×4 matrices, projection
-│   ├── model.c         # .tdm model loading
-│   └── texture.c       # BMP texture loading and sampling (24-bit)
-├── include/
-│   ├── gs.h
-│   ├── trx.h
-│   ├── model.h
-│   └── texture.h
-├── lib/                # Place Osw.lib here (see Dependencies)
-├── tdm_exporter_v2.py  # Blender plugin for .tdm export
-├── build.bat           # Build script (MSVC)
+├── rasterizer/
+│   ├── src/
+│   │   ├── main.c          # Entry point, camera, lights, main loop, input
+│   │   ├── gs.c            # Graphics engine: framebuffer, z-buffer, id-buffer, rasterization
+│   │   ├── trx.c           # Linear algebra: vectors, 4×4 matrices, projection
+│   │   ├── model.c         # .tdm model loading
+│   │   └── texture.c       # BMP texture loading and sampling (24-bit)
+│   ├── include/
+│   │   ├── gs.h
+│   │   ├── trx.h
+│   │   ├── model.h
+│   │   └── texture.h
+│   ├── lib/                # Place Osw.lib here (see Dependencies)
+│   ├── tdm_exporter_v2.py  # Blender plugin for .tdm export
+│   └── build.bat           # Build script (MSVC)
 └── README.md
 ```
 
@@ -143,8 +146,8 @@ Enlaza: `User32.lib`, `Gdi32.lib`, `Opengl32.lib`, `Xinput9_1_0.lib`, `Osw.lib`
 This project requires **libosw**, an external library for window management and input handling. It is not included in this repository.
 
 1. Obtain libosw from the original provider
-2. Copy `Osw.lib` to the `lib/` folder
-3. Copy the libosw headers to `include/libosw/`
+2. Copy `Osw.lib` to the `rasterizer/lib/` folder
+3. Copy the libosw headers to `rasterizer/include/libosw/`
 
 ### Binary format .tdm
 
@@ -163,7 +166,7 @@ The repository does not include models or textures due to licensing. To use the 
 1. Open your model in Blender
 2. Assign vertex groups to define selectable parts
 3. Run `tdm_exporter_v2.py` to export to `.tdm` format
-4. Place the `.tdm` file and `.bmp` texture (24-bit, uncompressed) in the project root
+4. Place the `.tdm` file and `.bmp` texture (24-bit, uncompressed) in the `rasterizer/` folder
 5. Update the file names in `main.c` and build
 
 ### Controls
@@ -184,6 +187,7 @@ The repository does not include models or textures due to licensing. To use the 
 Requires MSVC (Visual Studio). Adjust `VS_PATH` in `build.bat` and run:
 
 ```bat
+cd rasterizer
 build.bat
 ```
 
